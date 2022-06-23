@@ -1,6 +1,7 @@
 from .base_page import BasePage
 from selenium.webdriver.common.by import By
 from .locators import MainPageLocators
+from .login_page import LoginPage
 
 class MainPage(BasePage):
     # метод проверки ссылки на старницу
@@ -8,6 +9,11 @@ class MainPage(BasePage):
         assert self.is_element_present(*MainPageLocators.LOGIN_LINK), "Login link is not presented"
 
     # метод перехода на страницу логина
+    # def go_to_login_page(self):
+    #     login_link = self.browser.find_element(*MainPageLocators.LOGIN_LINK)
+    #     login_link.click()
+
     def go_to_login_page(self):
-        login_link = self.browser.find_element(*MainPageLocators.LOGIN_LINK)
-        login_link.click()
+        link = self.is_element_present(*MainPageLocators.LOGIN_LINK)
+        link.click()
+        return LoginPage(browser=self.browser, url=self.browser.current_url)

@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-class MainPageLocators():
+class BasePageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
 
 class LoginPageLocators():
@@ -11,5 +11,5 @@ class ProductPageLocators():
     BUTTON_TO_BASKET = (By.CSS_SELECTOR, "button.btn-add-to-basket")
     PRODUCT_TITLE = (By.CSS_SELECTOR, ".product_main h1")
     PRICE_PRODUCT = (By.CSS_SELECTOR, "p.price_color")
-    MESSAGE_TITLE_PRODUCT = (By.CSS_SELECTOR, "#messages > div.alert:nth-child(1) > div strong")
-    MESSAGE_PRICE_PRODUCT = (By.CSS_SELECTOR, "#messages > div.alert-info > .alertinner p strong")
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, "#messages > div.alert:nth-child(1) > div strong")
+    BASKET_TOTAL_MESSAGE = (By.CSS_SELECTOR, "#messages > div.alert-info > .alertinner p strong")

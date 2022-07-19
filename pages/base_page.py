@@ -5,9 +5,7 @@ from selenium.common.exceptions import NoAlertPresentException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
-
-
+from selenium.webdriver.support.ui import Select
 
 class BasePage():
     def __init__(self, browser, url, timeout=10):
@@ -25,9 +23,35 @@ class BasePage():
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
 
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented, probably unauthorised user"
+
     def go_to_basket_page(self):
         button_to_basket = self.browser.find_element(*BasePageLocators.BUTTON_TO_BASKET)
         button_to_basket.click()
+
+    def should_be_language_switcher(self):
+        assert self.is_element_present(*BasePageLocators.LANGUAGE_SELECTION), "Language switcher is not presented"
+
+    def choose_a_language(self, lang):
+        language_selection = Select(self.browser.find_element(*BasePageLocators.LANGUAGE_SELECTION))
+        language_selection.select_by_value(lang)
+
+    def switch_language(self):
+        button_lang_switch = self.browser.find_element(*BasePageLocators.BUTTON_LANG_SWITCH)
+        button_lang_switch.click()
+
+    def should_be_language_in_url(self, lang):
+        language_url = self.browser.current_url
+        assert lang in language_url, "Page url does not match the selected language"
+
+    def entering_a_value_in_the_search_field(self, value):
+        input_search = self.browser.find_element(*BasePageLocators.FIELD_SEARCH)
+        input_search.send_keys(value)
+
+    def start_search_by_button(self):
+        button_search = self.browser.find_element(*BasePageLocators.BUTTON_SEARCH)
+        button_search.click()
 
     def is_element_present(self, how, what):
         try:
